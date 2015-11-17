@@ -4,39 +4,8 @@
     ViewBag.Title = "Random";
 }
 
-<h2>Random</h2>
-
-<div>
-    <h4>CrypticCity</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Clue)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Clue)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Hint)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Hint)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Answer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Answer)
-        </dd>
-
-    </dl>
+<div class="text-vertical-center">
+    <h1>@Html.DisplayFor(model => model.Clue)</h1>
+    <br>
+    <a href="#about" class="btn btn-dark btn-lg">@Html.DisplayFor(model => model.Hint)</a>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

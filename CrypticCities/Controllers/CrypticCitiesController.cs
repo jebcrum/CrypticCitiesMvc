@@ -16,7 +16,7 @@ namespace CrypticCities.Controllers
 
         public ActionResult Random()
         {
-            return View(db.CrypticCities.OrderBy(x=>Guid.NewGuid()).Take(1).FirstOrDefault());
+            return View("Random", "_Public", db.CrypticCities.OrderBy(x=>Guid.NewGuid()).Take(1).FirstOrDefault());
         }
          // GET: CrypticCities
         public ActionResult Index()

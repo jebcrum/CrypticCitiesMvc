@@ -26,6 +26,19 @@ namespace CrypticCities
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/sb-admin/css").Include(
+                      "~/Content/sb-admin/css/bootstrap.css",
+                      "~/Content/sb-admin/css/sb-admin.css",
+                      "~/Content/sb-admin/font-awesome/css/font-awesome.css"));
+
+            bundles.Add(new StyleBundle("~/Content/stylish/css").Include(
+                      "~/Content/stylish/css/bootstrap.css",
+                      "~/Content/stylish/css/stylish-portfolio.css",
+                      "~/Content/stylish/font-awesome/css/font-awesome.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/sb-admin").Include(
+                      "~/Content/sb-admin/js/bootstrap.js"));
         }
     }
 }
