@@ -14,6 +14,10 @@ namespace CrypticCities.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult Random()
+        {
+            return View(db.CrypticCities.OrderBy(x=>Guid.NewGuid()).Take(1).FirstOrDefault());
+        }
          // GET: CrypticCities
         public ActionResult Index()
         {
