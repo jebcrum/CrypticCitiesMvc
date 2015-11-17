@@ -29,5 +29,7 @@ namespace CrypticCities.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<CrypticCities.Models.CrypticCity> CrypticCities { get; set; }
     }
 }
