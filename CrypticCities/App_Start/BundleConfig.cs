@@ -29,8 +29,13 @@ namespace CrypticCities
 
             bundles.Add(new StyleBundle("~/Content/sb-admin/css").Include(
                       "~/Content/sb-admin/css/bootstrap.css",
-                      "~/Content/sb-admin/css/sb-admin.css",
+                      "~/Content/sb-admin/css/sb-admin-2.css",
                       "~/Content/sb-admin/font-awesome/css/font-awesome.css"));
+
+            bundles.Add(new StyleBundle("~/Content/sb-admin-2/css").Include(
+                      "~/Content/sb-admin-2/css/bootstrap.css",
+                      "~/Content/sb-admin-2/css/sb-admin.css",
+                      "~/Content/sb-admin-2/font-awesome/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/stylish/css").Include(
                       "~/Content/stylish/css/bootstrap.css",
