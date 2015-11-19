@@ -32,7 +32,7 @@ namespace CrypticCities
                       "~/Content/sb-admin/css/sb-admin-2.css",
                       "~/Content/sb-admin/font-awesome/css/font-awesome.css"));
 
-            bundles.Add(new StyleBundle("~/Content/sb-admin-2/css").Include(
+            bundles.Add(new StyleBundle("~/styles/sb-admin-2").Include(
                       "~/Content/sb-admin-2/bower_components/bootstrap/dist/css/bootstrap.css",
                       "~/Content/sb-admin-2/dist/css/sb-admin-2.css",
                       "~/Content/sb-admin-2/bower_components/metisMenu/dist/metisMenu.css",
