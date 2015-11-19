@@ -33,9 +33,10 @@ namespace CrypticCities
                       "~/Content/sb-admin/font-awesome/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/sb-admin-2/css").Include(
-                      "~/Content/sb-admin-2/css/bootstrap.css",
-                      "~/Content/sb-admin-2/css/sb-admin.css",
-                      "~/Content/sb-admin-2/font-awesome/css/font-awesome.css"));
+                      "~/Content/sb-admin-2/bower_components/bootstrap/dist/css/bootstrap.css",
+                      "~/Content/sb-admin-2/dist/css/sb-admin-2.css",
+                      "~/Content/sb-admin-2/bower_components/metisMenu/dist/metisMenu.css",
+                      "~/Content/sb-admin-2/bower_components/font-awesome/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/stylish/css").Include(
                       "~/Content/stylish/css/bootstrap.css",
@@ -44,6 +45,11 @@ namespace CrypticCities
 
             bundles.Add(new ScriptBundle("~/bundles/sb-admin").Include(
                       "~/Content/sb-admin/js/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/sb-admin-2").Include(
+                      "~/Content/sb-admin-2/bower_components/bootstrap/dist/js/bootstrap.js",
+                      "~/Content/sb-admin-2/bower_components/metisMenu/dist/metisMenu.js",
+                      "~/Content/sb-admin-2/dist/js/sb-admin-2.js"));            
         }
     }
 }
