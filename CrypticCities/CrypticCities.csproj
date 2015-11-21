@@ -44,11 +44,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.FullNetFx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -186,8 +198,13 @@
     <Compile Include="Migrations\201511190550064_AddedTrackingFieldsForCC.Designer.cs">
       <DependentUpon>201511190550064_AddedTrackingFieldsForCC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511212205316_AddedBaseEntityForMetaData.cs" />
+    <Compile Include="Migrations\201511212205316_AddedBaseEntityForMetaData.Designer.cs">
+      <DependentUpon>201511212205316_AddedBaseEntityForMetaData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\CrypticCity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -195,8 +212,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\sb-admin-2\bower_components\bootstrap-social\.gitignore" />
     <Content Include="Content\sb-admin-2\bower_components\bootstrap-social\bootstrap-social.css" />
     <Content Include="Content\sb-admin-2\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
@@ -682,9 +701,14 @@
     <Content Include="Content\stylish\css\bootstrap.css" />
     <Content Include="Content\stylish\css\bootstrap.min.css" />
     <Content Include="Content\stylish\css\stylish-portfolio.css" />
-    <Content Include="Content\stylish\font-awesome\css\font-awesome.css" />
-    <Content Include="Content\stylish\font-awesome\css\font-awesome.min.css" />
-    <Content Include="Content\stylish\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Content\stylish\css\stylish-portfolio.min.css.del" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <None Include="Content\font-awesome\css\font-awesome.min.css.del" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\stylish\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\stylish\img\bg.jpg" />
     <Content Include="Content\stylish\img\callout.jpg" />
@@ -697,7 +721,6 @@
     <Content Include="Content\stylish\js\bootstrap.min.js" />
     <Content Include="Content\stylish\js\jquery.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -738,36 +761,36 @@
     <Content Include="Content\sb-admin\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\sb-admin\LICENSE" />
     <Content Include="Content\sb-admin\README.md" />
-    <Content Include="Content\stylish\font-awesome\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\stylish\font-awesome\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\stylish\font-awesome\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\stylish\font-awesome\fonts\FontAwesome.otf" />
-    <Content Include="Content\stylish\font-awesome\less\bordered-pulled.less" />
-    <Content Include="Content\stylish\font-awesome\less\core.less" />
-    <Content Include="Content\stylish\font-awesome\less\fixed-width.less" />
-    <Content Include="Content\stylish\font-awesome\less\font-awesome.less" />
-    <Content Include="Content\stylish\font-awesome\less\icons.less" />
-    <Content Include="Content\stylish\font-awesome\less\larger.less" />
-    <Content Include="Content\stylish\font-awesome\less\list.less" />
-    <Content Include="Content\stylish\font-awesome\less\mixins.less" />
-    <Content Include="Content\stylish\font-awesome\less\path.less" />
-    <Content Include="Content\stylish\font-awesome\less\rotated-flipped.less" />
-    <Content Include="Content\stylish\font-awesome\less\spinning.less" />
-    <Content Include="Content\stylish\font-awesome\less\stacked.less" />
-    <Content Include="Content\stylish\font-awesome\less\variables.less" />
-    <Content Include="Content\stylish\font-awesome\scss\font-awesome.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_bordered-pulled.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_core.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_fixed-width.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_icons.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_larger.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_list.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_mixins.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_path.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_rotated-flipped.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_spinning.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_stacked.scss" />
-    <Content Include="Content\stylish\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\spinning.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
     <Content Include="Content\stylish\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\stylish\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\stylish\fonts\glyphicons-halflings-regular.woff" />
@@ -1080,6 +1103,8 @@
     <Content Include="Content\sb-admin-2\less\variables.less" />
     <Content Include="Content\sb-admin-2\LICENSE" />
     <Content Include="Content\sb-admin-2\README.md" />
+    <None Include="Properties\PublishProfiles\crypticcities - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\crypticcities - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1139,9 +1164,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -1155,6 +1177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511190550064_AddedTrackingFieldsForCC.resx">
       <DependentUpon>201511190550064_AddedTrackingFieldsForCC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511212205316_AddedBaseEntityForMetaData.resx">
+      <DependentUpon>201511212205316_AddedBaseEntityForMetaData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

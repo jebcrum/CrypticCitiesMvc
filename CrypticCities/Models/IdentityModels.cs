@@ -3,6 +3,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Linq;
+using System.Web;
+using System;
 
 namespace CrypticCities.Models
 {
@@ -31,5 +34,29 @@ namespace CrypticCities.Models
         }
 
         public System.Data.Entity.DbSet<CrypticCities.Models.CrypticCity> CrypticCities { get; set; }
+
+        public override int SaveChanges()
+        {
+            var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            var currentUsername = HttpContext.Current != null && HttpContext.Current.User != null
+                ? HttpContext.Current.User.Identity.Name
+                : "Anonymous";
+
+            foreach (var entity in entities)
+            {
+                if (entity.State == EntityState.Added)
+                {
+                    ((BaseEntity)entity.Entity).DateCreated = DateTime.Now;
+                    ((BaseEntity)entity.Entity).UserCreated = currentUsername;
+                }
+
+                ((BaseEntity)entity.Entity).DateModified = DateTime.Now;
+                ((BaseEntity)entity.Entity).UserModified = currentUsername;
+            }
+
+            return base.SaveChanges();
+        }
+
     }
 }

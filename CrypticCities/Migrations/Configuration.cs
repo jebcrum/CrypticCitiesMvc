@@ -1,5 +1,6 @@
 namespace CrypticCities.Migrations
 {
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -19,13 +20,13 @@ namespace CrypticCities.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.CrypticCities.AddOrUpdate(
+              p => p.Clue,
+              new CrypticCity { Clue = "To set a striped insect on fire", Hint = "Vancouver's neighbour", Answer = "Burnaby" },
+              new CrypticCity { Clue = "cold, to hit with a stick", Hint = "Known for it's corn", Answer = "Chilliwack" },
+              new CrypticCity { Clue = "to make sound by blowing from the lips, she", Hint = "Olypics 2010", Answer = "Whistler" }
+            );
+            context.SaveChanges();
         }
     }
 }

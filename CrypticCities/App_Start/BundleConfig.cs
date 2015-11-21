@@ -8,6 +8,19 @@ namespace CrypticCities
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            /*
+            Imporant note!
+
+            When using bundling, if the css files link to other resources (fonts, imgs, etc) using relative paths,
+            they wont work out of the box with bundling:
+
+            You need to use the CssRewriteUrlTransform in each include to have it change the relative paths
+            This also requires that the minified css files aren't present, otherwise it will just use those, 
+            and no re-write will happen on the urls.
+            */
+
+
+            BundleTable.EnableOptimizations = true;
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -27,21 +40,20 @@ namespace CrypticCities
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/sb-admin/css").Include(
+            bundles.Add(new StyleBundle("~/styles/sb-admin").Include(
                       "~/Content/sb-admin/css/bootstrap.css",
                       "~/Content/sb-admin/css/sb-admin-2.css",
-                      "~/Content/sb-admin/font-awesome/css/font-awesome.css"));
+                      "~/Content/font-awesome/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/styles/sb-admin-2").Include(
                       "~/Content/sb-admin-2/bower_components/bootstrap/dist/css/bootstrap.css",
                       "~/Content/sb-admin-2/dist/css/sb-admin-2.css",
-                      "~/Content/sb-admin-2/bower_components/metisMenu/dist/metisMenu.css",
-                      "~/Content/sb-admin-2/bower_components/font-awesome/css/font-awesome.css"));
+                      "~/Content/sb-admin-2/bower_components/metisMenu/dist/metisMenu.css"
+                      ).Include("~/Content/font-awesome/css/font-awesome.css", new CssRewriteUrlTransform()));
 
-            bundles.Add(new StyleBundle("~/Content/stylish/css").Include(
-                      "~/Content/stylish/css/bootstrap.css",
-                      "~/Content/stylish/css/stylish-portfolio.css",
-                      "~/Content/stylish/font-awesome/css/font-awesome.css"));
+            bundles.Add(new StyleBundle("~/styles/stylish")
+                .Include("~/Content/stylish/css/*.css", new CssRewriteUrlTransform())
+                .Include("~/Content/font-awesome/css/*.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle("~/bundles/sb-admin").Include(
                       "~/Content/sb-admin/js/bootstrap.js"));

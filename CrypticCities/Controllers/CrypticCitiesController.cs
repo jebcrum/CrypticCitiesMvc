@@ -19,12 +19,15 @@ namespace CrypticCities.Controllers
             return View("Random", "_Public", db.CrypticCities.OrderBy(x=>Guid.NewGuid()).Take(1).FirstOrDefault());
         }
          // GET: CrypticCities
+
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.CrypticCities.ToList());
         }
 
-        // GET: CrypticCities/Details/5
+
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,7 +42,7 @@ namespace CrypticCities.Controllers
             return View(crypticCity);
         }
 
-        // GET: CrypticCities/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -49,20 +52,30 @@ namespace CrypticCities.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Clue,Hint,Answer")] CrypticCity crypticCity)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CrypticCities.Add(crypticCity);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.CrypticCities.Add(crypticCity);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (DataException /*dex*/)
+            {
+                //Log the error (uncomment dex variable name after DataException and add a line here to write a log.)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+
 
             return View(crypticCity);
         }
 
-        // GET: CrypticCities/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,6 +94,7 @@ namespace CrypticCities.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Clue,Hint,Answer")] CrypticCity crypticCity)
         {
@@ -93,7 +107,7 @@ namespace CrypticCities.Controllers
             return View(crypticCity);
         }
 
-        // GET: CrypticCities/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,6 +125,7 @@ namespace CrypticCities.Controllers
         // POST: CrypticCities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             CrypticCity crypticCity = db.CrypticCities.Find(id);
