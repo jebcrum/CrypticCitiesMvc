@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CrypticCities.Models;
+using CrypticCities.Core;
 
 namespace CrypticCities.Controllers
 {
@@ -16,10 +17,53 @@ namespace CrypticCities.Controllers
 
         public ActionResult Random()
         {
-            return View("Random", "_Public", db.CrypticCities.OrderBy(x=>Guid.NewGuid()).Take(1).FirstOrDefault());
+            return View("Random", "_Public", db.CrypticCities.OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefault());
         }
-         // GET: CrypticCities
 
+        public ActionResult GetHint(int Id, int hintLevel)
+        {
+            var crypticCity = db.CrypticCities.Find(Id);
+            var answer = crypticCity.Answer;
+
+            IEnumerable<int> hintSequence;
+
+            if (!String.IsNullOrEmpty(crypticCity.HintSequence))
+            {
+                hintSequence = Numbers.ParseHintSequence(crypticCity.HintSequence);
+            }
+            else
+            {
+                hintSequence = Numbers.UniqueRandom(1, answer.Length);
+            }
+
+            var answerArray = answer.ToArray();
+            var hint = "";
+
+            var count = 0;
+            foreach (var value in hintSequence)
+            {
+                if (answerArray[count] == ' ')
+                {
+                    hint += "|";
+                }
+                else
+                {
+
+                    if (value > hintLevel)
+                    {
+                        hint += "_";
+                    }
+                    else
+                    {
+                        hint += answerArray[count];
+                    }
+                }
+                hint += " ";
+                count++;
+            }
+
+            return Content(hint.Trim());
+        }
         [Authorize]
         public ActionResult Index()
         {
@@ -60,6 +104,7 @@ namespace CrypticCities.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    crypticCity.HintSequence = Numbers.GenerateHintSequence(crypticCity.Answer.Length);
                     db.CrypticCities.Add(crypticCity);
                     db.SaveChanges();
                     return RedirectToAction("Index");

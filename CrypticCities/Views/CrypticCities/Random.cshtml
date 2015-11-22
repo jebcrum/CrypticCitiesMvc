@@ -7,5 +7,29 @@
 <div class="text-vertical-center">
     <h1>@Html.DisplayFor(model => model.Clue)</h1>
     <br>
-    <a href="#about" class="btn btn-dark btn-lg">@Html.DisplayFor(model => model.Hint)</a>
+    <a id="hint-link" href="#" data-city-id="@Html.DisplayFor(model=>model.Id)" data-hint-level="0" class="btn btn-dark btn-lg">Show Me A Hint</a>
+    <h3 id="hint">
+    </h3>
+
 </div>
+@section Scripts
+{
+<script>
+    var url = "?id=" + $('hint-link').attr('data-city-id') + "$hintlevel=" + $('hint-link').attr('data-hint-level');
+    $("#hint-link").click (function () {
+        $.ajax({
+            type: "GET", // or GET
+            url: "/crypticcities/gethint",
+            data: "id=" + @Model.Id +"&hintlevel=" + $("#hint-link").data().hintLevel,
+            success: function (data) {
+                //replace html with new hint
+                $("#hint").html(data);
+                //increment hint level
+                $("#hint-link").data().hintLevel++;
+            }
+        });
+        return false; // stop the browser following the link
+    });
+
+</script>
+}

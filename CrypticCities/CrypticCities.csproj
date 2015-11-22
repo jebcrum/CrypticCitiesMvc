@@ -183,6 +183,7 @@
     <Compile Include="Controllers\CrypticCitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Core\Numbers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,6 +202,10 @@
     <Compile Include="Migrations\201511212205316_AddedBaseEntityForMetaData.cs" />
     <Compile Include="Migrations\201511212205316_AddedBaseEntityForMetaData.Designer.cs">
       <DependentUpon>201511212205316_AddedBaseEntityForMetaData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511212338256_AddedHintSequenceField.cs" />
+    <Compile Include="Migrations\201511212338256_AddedHintSequenceField.Designer.cs">
+      <DependentUpon>201511212338256_AddedHintSequenceField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1180,6 +1185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511212205316_AddedBaseEntityForMetaData.resx">
       <DependentUpon>201511212205316_AddedBaseEntityForMetaData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511212338256_AddedHintSequenceField.resx">
+      <DependentUpon>201511212338256_AddedHintSequenceField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
