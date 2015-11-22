@@ -8,9 +8,9 @@ namespace CrypticCities.Migrations
         public override void Up()
         {
             AddColumn("dbo.CrypticCities", "HintSequence", c => c.String());
-            AlterColumn("dbo.CrypticCities", "Clue", c => c.String(nullable: false));
-            AlterColumn("dbo.CrypticCities", "Hint", c => c.String(nullable: false));
-            AlterColumn("dbo.CrypticCities", "Answer", c => c.String(nullable: false));
+            AlterColumn("dbo.CrypticCities", "Clue", c => c.String(nullable: false, defaultValue: "Default Clue"));
+            AlterColumn("dbo.CrypticCities", "Hint", c => c.String(nullable: false, defaultValue: "Default Hint"));
+            AlterColumn("dbo.CrypticCities", "Answer", c => c.String(nullable: false, defaultValue: "Default Answer"));
         }
         
         public override void Down()
