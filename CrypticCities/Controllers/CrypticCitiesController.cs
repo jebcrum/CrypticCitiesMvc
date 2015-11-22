@@ -64,6 +64,23 @@ namespace CrypticCities.Controllers
 
             return Content(hint.Trim());
         }
+
+        public ActionResult ApplyHintSequences()
+        {
+            var crypticCities = db.CrypticCities;
+
+            foreach (var cc in crypticCities)
+            {
+                if (string.IsNullOrEmpty(cc.HintSequence))
+                {
+                    cc.HintSequence = Numbers.GenerateHintSequence(cc.Answer.Length);
+                }
+
+            }
+            db.SaveChanges();
+            return Content("done");
+        }
+
         [Authorize]
         public ActionResult Index()
         {
