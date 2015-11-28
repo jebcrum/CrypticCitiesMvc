@@ -34,6 +34,7 @@ namespace CrypticCities.Models
         }
 
         public System.Data.Entity.DbSet<CrypticCities.Models.CrypticCity> CrypticCities { get; set; }
+        public System.Data.Entity.DbSet<CrypticCities.Models.Vote> Votes { get; set; }
 
         public override int SaveChanges()
         {

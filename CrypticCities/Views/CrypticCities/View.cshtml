@@ -1,0 +1,85 @@
+﻿ @model CrypticCities.Models.CrypticCity
+
+@{
+    ViewBag.Title = "Random";
+}
+
+<div class="text-vertical-center">
+    <h1>@Html.DisplayFor(model => model.Clue)</h1>
+    <br>
+    <a id="hint-link" href="#" data-city-id="@Html.DisplayFor(model=>model.Id)" data-hint-level="1" class="btn btn-dark btn-lg">Show Me A Hint</a>
+    <h2 id="hint"></h2>
+
+    <div class="col-md-2 answer">
+        <form id="guess-form">
+            <input id="guess-input" class="form-control" type="text" name="Answer" autocomplete="off" />
+        </form>
+    </div>
+    <div class="answer row">
+        <a href="/" class="btn btn-dark btn-lg">Next Cryptic City</a>
+    </div>
+    <div id="successful-guess" style="display:none;">
+        <h3>Conrats! You guessed the Cryptic Clue!</h3>
+        <div id="vote">
+            <p>Did you like this one?</p>
+            <a class="vote-link text-success" href="/CrypticCities/Vote/@Model.Id/1"><i class="fa fa-thumbs-up"></i></a>
+            <a class="vote-link text-danger" href="/CrypticCities/Vote/@Model.Id/0"><i class="fa fa-thumbs-down"></i></a>
+        </div>
+
+        <a href="/">Show me another!</a>
+    </div>
+
+</div>
+@section Scripts
+{
+<script>
+
+    $(".vote-link").click(function () {
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("href"),
+            data:null,
+            success: function (data) {
+                $("#vote").html("Thanks for voting! Current approval rating: " + data);
+            }
+        });
+        return false;
+    });
+
+    $("#hint-link").click (function () {
+        $.ajax({
+            type: "GET", // or GET
+            url: "/crypticcities/gethint",
+            data: "id=" + @Model.Id +"&hintlevel=" + $("#hint-link").data().hintLevel,
+            success: function (data) {
+                //replace html with new hint
+                $("#hint").html(data);
+                //increment hint level
+                $("#hint-link").data().hintLevel++;
+            }
+        });
+        return false; // stop the browser following the link
+    });
+
+    
+    $("#guess-form").submit(function () {
+        $.ajax({
+            type: "GET", // or GET
+            url: "/crypticcities/guess",
+            data: "id=" + @Model.Id +"&guess=" + $("#guess-input").val(),
+            success: function (data) {
+                
+                var classToAdd = "has-danger";
+                if (data == "True") {
+                    classToAdd = "has-success";
+                    $("#successful-guess").show();
+                }
+                $("#guess-input").removeClass().addClass(classToAdd);
+                //replace html with new hint
+            }
+        });
+        return false; // stop the browser following the link
+    });
+
+</script>
+}

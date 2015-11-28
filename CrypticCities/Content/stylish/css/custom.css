@@ -1,0 +1,33 @@
+﻿body {
+}
+
+h2#hint {
+    height:50px;
+}
+.answer {
+    float: none;
+    margin: 0 auto;
+}
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+}
+
+.answer input[type=text] {
+
+    background-color: transparent;
+    font-size: 20px;
+    height: 50px;
+    text-align: center;
+    align-self: center;
+}
+
+.has-success {
+    border: 2px solid green;
+}
+
+.has-danger {
+    border: 2px solid red;
+}
+
+.vote-link {
+    font-size:30px;
+}

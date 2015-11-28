@@ -17,7 +17,8 @@ namespace CrypticCities.Controllers
 
         public ActionResult Random()
         {
-            return View("Random", "_Public", db.CrypticCities.OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefault());
+
+            return View("View", "_Public", db.CrypticCities.OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefault());
         }
 
         public ActionResult GetHint(int Id, int hintLevel)
@@ -65,6 +66,36 @@ namespace CrypticCities.Controllers
             return Content(hint.Trim());
         }
 
+        public ActionResult Guess (int id, string guess)
+        {
+            // compare guess to answer, converting both to lowercase first
+            bool outcome = db.CrypticCities.Find(id).Answer.ToLower() == guess.ToLower();
+            return Content(outcome.ToString());
+
+        }
+
+        [HttpPost]
+        public ActionResult Vote (int id, int approval)
+        {
+            //TODO: Prevent same ip from voting more than once
+
+            var isApproved = (approval == 1 ? true : false);
+            var vote = new Vote { CrypticCityId = id, IsApproved = isApproved, IPAddress = Request.UserHostAddress };
+
+            db.Votes.Add(vote);
+            try
+            {
+                db.SaveChanges();
+            } catch (Exception ex)
+            {
+                return Content(ex.InnerException.ToString());
+            }
+
+            var approvalRating = UpdateApprovalRating(id);
+
+            return Content(approvalRating.ToString());
+        }
+
         public ActionResult ApplyHintSequences()
         {
             var crypticCities = db.CrypticCities;
@@ -89,7 +120,7 @@ namespace CrypticCities.Controllers
 
 
         [Authorize]
-        public ActionResult Details(int? id)
+        public ActionResult View(int? id)
         {
             if (id == null)
             {
@@ -100,7 +131,7 @@ namespace CrypticCities.Controllers
             {
                 return HttpNotFound();
             }
-            return View(crypticCity);
+            return View("View", "_Public");
         }
 
         [Authorize]
@@ -194,6 +225,22 @@ namespace CrypticCities.Controllers
             db.CrypticCities.Remove(crypticCity);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public decimal UpdateApprovalRating(int crypticCityId)
+        {
+            // get the total vote and approval counts for the cc
+            var voteCount = db.Votes.Where(x => x.CrypticCityId == crypticCityId).Count();
+            var approvalCount = db.Votes.Where(x => x.CrypticCityId == crypticCityId).Where(x => x.IsApproved == true).Count();
+
+            //get the rating
+            var approvalrating = (decimal)approvalCount / (decimal)voteCount;
+
+            //get the cc to update and update with approval rating
+            var crypticCityToUpdate = db.CrypticCities.Find(crypticCityId);
+            crypticCityToUpdate.ApprovalRating = approvalrating;
+            db.SaveChanges();
+            return approvalrating;
         }
 
         protected override void Dispose(bool disposing)

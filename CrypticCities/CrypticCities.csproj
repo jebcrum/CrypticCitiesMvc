@@ -207,6 +207,14 @@
     <Compile Include="Migrations\201511212338256_AddedHintSequenceField.Designer.cs">
       <DependentUpon>201511212338256_AddedHintSequenceField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511280019214_AddedVotes.cs" />
+    <Compile Include="Migrations\201511280019214_AddedVotes.Designer.cs">
+      <DependentUpon>201511280019214_AddedVotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511280618102_AddedApprovalRating.cs" />
+    <Compile Include="Migrations\201511280618102_AddedApprovalRating.Designer.cs">
+      <DependentUpon>201511280618102_AddedApprovalRating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseEntity.cs" />
@@ -705,6 +713,7 @@
     <Content Include="Content\sb-admin\tables.html" />
     <Content Include="Content\stylish\css\bootstrap.css" />
     <Content Include="Content\stylish\css\bootstrap.min.css" />
+    <Content Include="Content\stylish\css\custom.css" />
     <Content Include="Content\stylish\css\stylish-portfolio.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -1158,10 +1167,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\CrypticCities\Create.cshtml" />
     <Content Include="Views\CrypticCities\Delete.cshtml" />
-    <Content Include="Views\CrypticCities\Details.cshtml" />
     <Content Include="Views\CrypticCities\Edit.cshtml" />
     <Content Include="Views\CrypticCities\Index.cshtml" />
-    <Content Include="Views\CrypticCities\Random.cshtml" />
+    <Content Include="Views\CrypticCities\View.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Public.cshtml" />
   </ItemGroup>
@@ -1188,6 +1196,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511212338256_AddedHintSequenceField.resx">
       <DependentUpon>201511212338256_AddedHintSequenceField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511280019214_AddedVotes.resx">
+      <DependentUpon>201511280019214_AddedVotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511280618102_AddedApprovalRating.resx">
+      <DependentUpon>201511280618102_AddedApprovalRating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
