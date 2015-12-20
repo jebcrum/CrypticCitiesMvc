@@ -1,5 +1,7 @@
 ﻿using CrypticCities.Migrations;
 using CrypticCities.Models;
+using StackExchange.Profiling;
+using StackExchange.Profiling.EntityFramework6;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,7 +21,27 @@ namespace CrypticCities
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            MiniProfilerEF6.Initialize();
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+
+            
+        }
+
+        protected void Application_BeginRequest()
+        {
+            MiniProfiler.Start();
+            //if (Request.IsLocal)
+            //{
+               
+            //}
+            
+
+        }
+
+        protected void Application_EndRequest()
+        {
+            MiniProfiler.Stop();
         }
     }
 }

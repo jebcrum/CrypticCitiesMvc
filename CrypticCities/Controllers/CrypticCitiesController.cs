@@ -193,8 +193,10 @@ namespace CrypticCities.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(crypticCity).State = EntityState.Modified;
+                var crypticCityToUpdate = db.CrypticCities.Find(crypticCity.Id);
+                UpdateModel(crypticCityToUpdate);
                 db.SaveChanges();
+                db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
                 return RedirectToAction("Index");
             }
             return View(crypticCity);
